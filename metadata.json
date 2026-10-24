@@ -1,0 +1,6 @@
+{
+  "name": "Arllon Fernandes Barbearia - Catálogo Profissional",
+  "description": "Catálogo comercial premium de produtos profissionais para barbearia com carrinho inteligente e checkout via WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
