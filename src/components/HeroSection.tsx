@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronDown, Sparkles } from 'lucide-react';
+import { ChevronDown, Scissors } from 'lucide-react';
 import { STORE_INFO } from '../data/products';
 
 export const HeroSection: React.FC = () => {
@@ -19,10 +19,19 @@ export const HeroSection: React.FC = () => {
       />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
-        {/* Editorial Sub-kicker */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#082E5A]/80 border border-[#42C8FF]/30 text-xs font-semibold tracking-wider text-[#42C8FF] mb-6">
-          <Sparkles className="w-3.5 h-3.5 text-[#42C8FF]" />
-          <span>{STORE_INFO.name.toUpperCase()}</span>
+        {/* Editorial Sub-kicker: Barbershop Badge with Scissors and Two-Line Brand */}
+        <div className="inline-flex items-center gap-3 px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-[#082E5A]/70 border border-[#42C8FF]/40 shadow-[0_0_12px_rgba(66,200,255,0.15)] mb-6 backdrop-blur-xs">
+          <div className="p-1.5 rounded-lg bg-[#04172B] border border-[#42C8FF]/30 text-[#42C8FF] flex items-center justify-center shrink-0">
+            <Scissors className="w-4 h-4 sm:w-5 sm:h-5 text-[#42C8FF]" />
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <span className="text-[11px] sm:text-xs font-extrabold tracking-widest text-[#F5F8FC] uppercase leading-tight">
+              ARLLON FERNANDES
+            </span>
+            <span className="text-xs sm:text-sm font-black uppercase text-[#42C8FF] tracking-[0.38em] sm:tracking-[0.44em] -mr-[0.38em] sm:-mr-[0.44em] w-full text-center leading-tight mt-0.5">
+              BARBEARIA
+            </span>
+          </div>
         </div>
 
         {/* Main Title */}

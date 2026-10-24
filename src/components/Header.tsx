@@ -59,11 +59,11 @@ export const Header: React.FC<HeaderProps> = ({
             href="#catalogo"
             className="flex flex-col text-left group min-w-0"
           >
-            <span className="text-xs xs:text-sm sm:text-lg font-bold tracking-tight text-[#F5F8FC] group-hover:text-[#42C8FF] transition-colors leading-tight truncate block max-w-[120px] xs:max-w-[170px] sm:max-w-none">
-              {STORE_INFO.name}
+            <span className="text-[11px] xs:text-xs sm:text-sm font-extrabold tracking-wider text-[#F5F8FC] group-hover:text-[#42C8FF] transition-colors leading-tight uppercase truncate block">
+              ARLLON FERNANDES
             </span>
-            <span className="text-[10px] sm:text-[11px] font-medium uppercase tracking-widest text-[#AAB8CA] truncate hidden xs:block">
-              Catálogo Profissional
+            <span className="text-xs xs:text-sm sm:text-base font-black uppercase text-[#42C8FF] tracking-[0.34em] sm:tracking-[0.40em] -mr-[0.34em] sm:-mr-[0.40em] leading-tight block truncate">
+              BARBEARIA
             </span>
           </a>
         </div>

@@ -34,9 +34,14 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <h3 className="text-base font-bold text-[#F5F8FC] uppercase tracking-tight">
-                {STORE_INFO.name}
-              </h3>
+              <div className="flex flex-col leading-none">
+                <span className="text-sm font-bold text-[#F5F8FC] uppercase tracking-wide">
+                  ARLLON FERNANDES
+                </span>
+                <span className="text-sm font-black uppercase text-[#42C8FF] tracking-[0.34em] -mr-[0.34em] mt-0.5">
+                  BARBEARIA
+                </span>
+              </div>
             </div>
             <p className="text-xs leading-relaxed text-[#AAB8CA]">
               {STORE_INFO.subtitle} Linha de produtos profissionais selecionados para barbearias e cuidados diários de alta performance.
