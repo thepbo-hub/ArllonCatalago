@@ -47,6 +47,115 @@
   animation: pulse-glow 4s ease-in-out infinite;
 }
 
+/* --- REFINED STABLE 3D & LUMINOUS BUTTON STYLES (NO BLINKING / FLICKER-FREE) --- */
+.btn-3d {
+  position: relative;
+  transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* 3D White Button (Cards / Highlight) */
+.btn-3d-white {
+  background-color: #FFFFFF;
+  color: #04172B;
+  border: 1px solid #FFFFFF;
+  box-shadow: 
+    0 2px 4px rgba(4, 23, 43, 0.25),
+    0 5px 14px rgba(0, 0, 0, 0.3);
+}
+.btn-3d-white:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 24px rgba(66, 200, 255, 0.85),
+    0 8px 22px rgba(4, 23, 43, 0.4);
+}
+.btn-3d-white:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(4, 23, 43, 0.3);
+}
+
+/* 3D Green Button (Checkout WhatsApp) */
+.btn-3d-green {
+  background-color: #35D49A;
+  color: #04172B;
+  border: 1px solid #35D49A;
+  box-shadow: 
+    0 2px 4px rgba(4, 23, 43, 0.3),
+    0 6px 18px rgba(53, 212, 154, 0.35);
+}
+.btn-3d-green:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 28px rgba(53, 212, 154, 0.9),
+    0 8px 24px rgba(53, 212, 154, 0.5);
+}
+.btn-3d-green:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* 3D Blue Button (Explore / Primary CTA / Active Tab) */
+.btn-3d-blue {
+  background-color: #1687FF;
+  color: #FFFFFF;
+  border: 1px solid #1687FF;
+  box-shadow: 
+    0 2px 4px rgba(4, 23, 43, 0.3),
+    0 6px 18px rgba(22, 135, 255, 0.4);
+}
+.btn-3d-blue:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 30px rgba(66, 200, 255, 0.95),
+    0 8px 24px rgba(22, 135, 255, 0.55);
+}
+.btn-3d-blue:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* 3D Navy Button (Secondary buttons, Cart trigger, details, filters) */
+.btn-3d-navy {
+  background-color: #0B366B;
+  color: #F5F8FC;
+  border: 1px solid rgba(66, 200, 255, 0.4);
+  box-shadow: 
+    0 2px 4px rgba(4, 23, 43, 0.4),
+    0 5px 14px rgba(0, 0, 0, 0.35);
+}
+.btn-3d-navy:hover {
+  transform: translateY(-2px);
+  border-color: rgba(66, 200, 255, 0.9);
+  box-shadow: 
+    0 0 24px rgba(66, 200, 255, 0.8),
+    0 8px 22px rgba(22, 135, 255, 0.4);
+}
+.btn-3d-navy:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* 3D Red Button (Clear / Remove) */
+.btn-3d-red {
+  background-color: #FF5A65;
+  color: #FFFFFF;
+  border: 1px solid #FF5A65;
+  box-shadow: 
+    0 2px 4px rgba(4, 23, 43, 0.3),
+    0 5px 14px rgba(255, 90, 101, 0.35);
+}
+.btn-3d-red:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 0 24px rgba(255, 90, 101, 0.8),
+    0 8px 20px rgba(255, 90, 101, 0.45);
+}
+.btn-3d-red:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
 /* Custom scrollbars */
 ::-webkit-scrollbar {
   width: 6px;

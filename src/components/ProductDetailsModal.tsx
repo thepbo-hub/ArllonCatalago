@@ -70,9 +70,9 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
         <button
           onClick={onClose}
           aria-label="Fechar detalhes do produto"
-          className="absolute top-4 right-4 z-20 p-2 rounded-full bg-[#04172B]/80 hover:bg-[#082E5A] text-[#AAB8CA] hover:text-white border border-white/10 transition-colors cursor-pointer"
+          className="btn-3d btn-3d-navy absolute top-4 right-4 z-20 p-2.5 rounded-full cursor-pointer"
         >
-          <X className="w-5 h-5" />
+          <X className="w-5 h-5 text-[#F5F8FC]" />
         </button>
 
         {/* Left Column: Product Image Showcase */}
@@ -181,12 +181,12 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
               <span className="text-xs font-semibold uppercase tracking-wider text-[#AAB8CA]">
                 Quantidade:
               </span>
-              <div className="flex items-center rounded-xl bg-[#04172B] border border-white/10 p-1">
+              <div className="flex items-center rounded-xl bg-[#04172B] border border-white/10 p-1 gap-1">
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                   aria-label="Diminuir quantidade"
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-lg font-bold text-[#AAB8CA] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                  className="btn-3d w-8 h-8 rounded-lg flex items-center justify-center text-lg font-bold text-[#F5F8FC] bg-[#082E5A] hover:bg-[#1687FF] border border-white/10 shadow-[0_2px_0_#04172B] cursor-pointer"
                 >
                   -
                 </button>
@@ -197,7 +197,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                   type="button"
                   onClick={() => setQuantity((q) => q + 1)}
                   aria-label="Aumentar quantidade"
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-lg font-bold text-[#AAB8CA] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                  className="btn-3d w-8 h-8 rounded-lg flex items-center justify-center text-lg font-bold text-[#F5F8FC] bg-[#082E5A] hover:bg-[#1687FF] border border-white/10 shadow-[0_2px_0_#04172B] cursor-pointer"
                 >
                   +
                 </button>
@@ -206,10 +206,8 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
 
             <button
               onClick={handleAddToCart}
-              className={`w-full py-3 px-6 rounded-xl font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg active:scale-98 cursor-pointer ${
-                justAdded
-                  ? 'bg-[#35D49A] text-[#04172B]'
-                  : 'bg-[#1687FF] hover:bg-[#1687FF]/90 text-white shadow-[0_0_20px_rgba(22,135,255,0.4)]'
+              className={`btn-3d w-full py-4 px-6 rounded-xl font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer ${
+                justAdded ? 'btn-3d-green' : 'btn-3d-blue'
               }`}
             >
               {justAdded ? (

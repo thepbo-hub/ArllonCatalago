@@ -76,10 +76,10 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 key={item.value}
                 onClick={() => handleCategoryClick(item.value)}
-                className={`px-3 py-2 text-sm font-medium rounded-md transition-all whitespace-nowrap cursor-pointer ${
+                className={`btn-3d px-3.5 py-2 text-sm font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
                   isActive
-                    ? 'text-[#F5F8FC] bg-[#082E5A] border border-[#1687FF]/40 shadow-[0_0_12px_rgba(22,135,255,0.25)]'
-                    : 'text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340]/50'
+                    ? 'btn-3d-blue text-white'
+                    : 'text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340]/60 border border-transparent'
                 }`}
               >
                 {item.label}
@@ -94,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={onSearchClick}
               aria-label="Pesquisar produtos"
-              className="p-2.5 rounded-lg text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340] border border-transparent hover:border-[#1687FF]/30 transition-all cursor-pointer"
+              className="btn-3d p-2.5 rounded-lg text-[#AAB8CA] hover:text-[#F5F8FC] bg-[#04172B]/60 hover:bg-[#082E5A] border border-white/5 hover:border-[#42C8FF]/40 shadow-xs hover:shadow-[0_2px_8px_rgba(22,135,255,0.25)] transition-all cursor-pointer"
             >
               <Search className="w-5 h-5" />
             </button>
@@ -104,7 +104,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={openCart}
             aria-label={`Carrinho com ${totalItems} itens`}
-            className="relative flex items-center gap-2.5 px-3.5 py-2 rounded-lg bg-[#082E5A] hover:bg-[#0B2340] border border-[#1687FF]/40 hover:border-[#42C8FF] text-[#F5F8FC] transition-all shadow-[0_0_15px_rgba(22,135,255,0.2)] active:scale-95 cursor-pointer"
+            className="btn-3d btn-3d-navy relative flex items-center gap-2.5 px-4 py-2.5 rounded-xl cursor-pointer"
           >
             <div className="relative">
               <ShoppingBag className="w-5 h-5 text-[#42C8FF]" />

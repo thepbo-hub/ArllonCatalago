@@ -143,9 +143,9 @@ function CatalogContent() {
             </p>
             <button
               onClick={handleResetFilters}
-              className="mt-2 inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#1687FF] hover:bg-[#1687FF]/90 text-white text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer shadow-md"
+              className="btn-3d btn-3d-blue mt-2 inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider cursor-pointer"
             >
-              <RotateCcw className="w-4 h-4" />
+              <RotateCcw className="w-4 h-4 stroke-[2.5]" />
               <span>Limpar filtros</span>
             </button>
           </div>
@@ -180,7 +180,7 @@ function CatalogContent() {
 
             <button
               onClick={openCart}
-              className="flex-1 py-2.5 px-4 rounded-xl bg-[#35D49A] text-[#04172B] font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md active:scale-97 cursor-pointer"
+              className="btn-3d btn-3d-green flex-1 py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
             >
               <MessageSquare className="w-4 h-4 fill-current" />
               <span>Ver pedido</span>

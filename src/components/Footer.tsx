@@ -96,7 +96,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
               href={STORE_INFO.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#082E5A] hover:bg-[#1687FF] text-[#F5F8FC] border border-[#1687FF]/40 text-xs font-semibold uppercase tracking-wider transition-all shadow-sm cursor-pointer"
+              className="btn-3d btn-3d-navy inline-flex items-center gap-2.5 px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider cursor-pointer"
             >
               <MessageSquare className="w-4 h-4 text-[#35D49A]" />
               <span>Contato via WhatsApp</span>

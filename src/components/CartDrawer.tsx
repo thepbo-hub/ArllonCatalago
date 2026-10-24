@@ -19,7 +19,6 @@ export const CartDrawer: React.FC = () => {
   } = useCart();
 
   const [copied, setCopied] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
 
   // Lock background scrolling and attach Escape key listener when cart is open
   useEffect(() => {
@@ -97,7 +96,7 @@ export const CartDrawer: React.FC = () => {
               <button
                 onClick={clearCart}
                 title="Esvaziar carrinho"
-                className="text-xs text-[#AAB8CA] hover:text-[#FF5A65] transition-colors p-1.5 rounded-md hover:bg-white/5 cursor-pointer"
+                className="btn-3d btn-3d-red text-[11px] font-bold py-1 px-2.5 rounded-lg cursor-pointer"
               >
                 Limpar
               </button>
@@ -105,9 +104,9 @@ export const CartDrawer: React.FC = () => {
             <button
               onClick={closeCart}
               aria-label="Fechar carrinho"
-              className="p-2 rounded-lg text-[#AAB8CA] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              className="btn-3d btn-3d-navy p-2 rounded-lg cursor-pointer"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 text-white" />
             </button>
           </div>
         </div>
@@ -125,7 +124,7 @@ export const CartDrawer: React.FC = () => {
               </div>
               <button
                 onClick={closeCart}
-                className="mt-2 px-6 py-2.5 rounded-xl bg-[#1687FF] hover:bg-[#1687FF]/90 text-white text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer shadow-md"
+                className="btn-3d btn-3d-blue mt-2 px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider cursor-pointer"
               >
                 Ver produtos
               </button>
@@ -161,13 +160,13 @@ export const CartDrawer: React.FC = () => {
 
                   {/* Quantity Stepper */}
                   <div className="flex items-center gap-2 mt-2">
-                    <div className="inline-flex items-center rounded-lg bg-[#04172B] border border-white/10 p-0.5">
+                    <div className="inline-flex items-center rounded-xl bg-[#04172B] border border-white/10 p-1 gap-1">
                       <button
                         onClick={() => updateQuantity(product.id, quantity - 1)}
                         aria-label={`Diminuir quantidade de ${product.name}`}
-                        className="w-6 h-6 rounded flex items-center justify-center text-xs font-bold text-[#AAB8CA] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                        className="btn-3d w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white bg-[#082E5A] hover:bg-[#1687FF] shadow-[0_2px_0_#04172B] cursor-pointer"
                       >
-                        <Minus className="w-3 h-3" />
+                        <Minus className="w-3.5 h-3.5 stroke-[2.5]" />
                       </button>
                       <span className="w-7 sm:w-8 text-center text-xs font-bold text-[#F5F8FC] tabular-nums">
                         {quantity}
@@ -175,16 +174,16 @@ export const CartDrawer: React.FC = () => {
                       <button
                         onClick={() => updateQuantity(product.id, quantity + 1)}
                         aria-label={`Aumentar quantidade de ${product.name}`}
-                        className="w-6 h-6 rounded flex items-center justify-center text-xs font-bold text-[#AAB8CA] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                        className="btn-3d w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white bg-[#082E5A] hover:bg-[#1687FF] shadow-[0_2px_0_#04172B] cursor-pointer"
                       >
-                        <Plus className="w-3 h-3" />
+                        <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
                       </button>
                     </div>
 
                     <button
                       onClick={() => removeFromCart(product.id)}
                       title="Remover item"
-                      className="p-1.5 rounded text-[#AAB8CA] hover:text-[#FF5A65] transition-colors cursor-pointer"
+                      className="btn-3d p-2 rounded-lg bg-[#FF5A65]/15 hover:bg-[#FF5A65] text-[#FF5A65] hover:text-white border border-[#FF5A65]/30 shadow-[0_2px_0_rgba(0,0,0,0.3)] transition-colors cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -208,7 +207,7 @@ export const CartDrawer: React.FC = () => {
               </span>
             </div>
 
-            {/* WhatsApp Checkout Primary Action */}
+            {/* WhatsApp Checkout Primary Action in 3D */}
             <a
               href={generateWhatsAppUrl()}
               target="_blank"
@@ -219,46 +218,32 @@ export const CartDrawer: React.FC = () => {
                   navigator.clipboard.writeText(msg).catch(() => {});
                 }
               }}
-              className="w-full py-3 sm:py-3.5 px-4 rounded-xl bg-[#35D49A] hover:bg-[#35D49A]/90 text-[#04172B] font-bold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(53,212,154,0.35)] hover:shadow-[0_0_28px_rgba(53,212,154,0.5)] active:scale-98 flex items-center justify-center gap-2 cursor-pointer no-underline text-center"
+              className="btn-3d btn-3d-green w-full py-3.5 sm:py-4 px-4 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer no-underline text-center"
             >
               <MessageSquare className="w-5 h-5 fill-current shrink-0" />
               <span>Finalizar Pedido pelo WhatsApp</span>
             </a>
 
-            {/* Fallback & Copy tools */}
-            <div className="flex items-center justify-between gap-2 text-xs">
+            {/* Fallback & Copy tool */}
+            <div className="pt-0.5">
               <button
                 onClick={handleCopyMessage}
-                className="flex-1 py-2 px-2.5 rounded-lg bg-[#04172B] hover:bg-[#082E5A] text-[#AAB8CA] hover:text-[#F5F8FC] border border-white/5 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                className="btn-3d btn-3d-navy w-full py-2.5 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
                 title="Copiar mensagem organizada para colar no WhatsApp se necessário"
               >
                 {copied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-[#35D49A]" />
-                    <span className="text-[#35D49A] font-semibold">Copiado!</span>
+                    <Check className="w-4 h-4 text-[#35D49A] stroke-[3]" />
+                    <span className="text-[#35D49A] font-bold">Mensagem copiada para a área de transferência!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5" />
-                    <span>Copiar pedido</span>
+                    <Copy className="w-4 h-4 text-[#42C8FF]" />
+                    <span>Copiar resumo do pedido</span>
                   </>
                 )}
               </button>
-
-              <button
-                onClick={() => setShowPreview(!showPreview)}
-                className="py-2 px-3 rounded-lg bg-[#04172B] hover:bg-[#082E5A] text-[#AAB8CA] hover:text-[#F5F8FC] border border-white/5 transition-colors text-[11px] cursor-pointer whitespace-nowrap"
-              >
-                {showPreview ? 'Ocultar mensagem' : 'Ver mensagem'}
-              </button>
             </div>
-
-            {/* Message Preview Drawer if requested */}
-            {showPreview && (
-              <div className="p-2.5 rounded-lg bg-[#04172B] border border-white/10 text-[11px] text-[#AAB8CA] font-mono whitespace-pre-wrap max-h-28 overflow-y-auto">
-                {generateWhatsAppMessage()}
-              </div>
-            )}
 
             <p className="text-[10px] text-center text-[#AAB8CA]/80 leading-tight">
               Destino oficial: <span className="text-[#42C8FF]">{STORE_INFO.name}</span>

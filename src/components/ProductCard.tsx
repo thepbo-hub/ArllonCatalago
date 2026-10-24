@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShoppingBag, Check, FileText, Sparkles, ImageOff } from 'lucide-react';
-import { Product } from '../data/products';
+import { Product, STORE_INFO } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { RatingDots } from './RatingDots';
 
@@ -24,14 +24,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
   return (
     <article
       onClick={() => onOpenDetails(product)}
-      className="group relative flex flex-col justify-between rounded-2xl bg-gradient-to-b from-[#0B2340] to-[#082E5A] border border-[#1687FF]/20 hover:border-[#42C8FF]/60 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_12px_32px_rgba(22,135,255,0.25)] p-4 sm:p-5 cursor-pointer overflow-hidden"
+      className="group relative flex flex-col justify-between rounded-2xl bg-gradient-to-b from-[#0B2340] to-[#082E5A] border border-[#1687FF]/20 hover:border-[#42C8FF]/60 transition-all duration-300 p-4 sm:p-5 cursor-pointer overflow-hidden shadow-lg hover:shadow-[0_12px_28px_rgba(4,23,43,0.85)]"
     >
-      {/* Ambient hover glow */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-tr from-[#1687FF]/0 via-transparent to-[#42C8FF]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" 
-        aria-hidden="true" 
-      />
-
       {/* Top Bar: Indicators & Content Badge */}
       <div className="relative z-10 flex items-start justify-between gap-2 min-h-[28px] mb-2">
         <div className="flex flex-wrap items-center gap-1.5">
@@ -48,19 +42,34 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
         </span>
       </div>
 
-      {/* Image Showcase */}
-      <div className="relative z-10 w-full h-48 sm:h-52 my-2 flex items-center justify-center rounded-xl bg-[#04172B]/50 p-3 group-hover:bg-[#04172B]/70 transition-colors">
+      {/* Image Showcase: Centered light exits left on hover, leaving enlarged product as sole highlight */}
+      <div className="relative z-10 w-full h-48 sm:h-52 my-2 flex items-center justify-center rounded-xl bg-[#04172B]/60 p-3 overflow-hidden">
+        {/* Visible Centered Ambient Light before hover; exits to the left on hover */}
+        <div 
+          className="absolute w-36 h-36 rounded-full bg-[#1687FF]/35 blur-2xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:-translate-x-[220%] group-hover:opacity-0 transition-all duration-500 ease-out pointer-events-none" 
+          aria-hidden="true"
+        />
+
+        {/* Subtle Discreet Watermark Logo behind product */}
+        <img
+          src={STORE_INFO.logo}
+          alt=""
+          aria-hidden="true"
+          className="absolute w-16 h-16 object-contain opacity-[0.06] group-hover:opacity-0 transition-opacity duration-400 pointer-events-none grayscale"
+          referrerPolicy="no-referrer"
+        />
+
         {!imageError ? (
           <img
             src={product.image}
             alt={product.name}
             onError={() => setImageError(true)}
-            className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.5)]"
+            className="relative z-10 w-full h-full object-contain transition-transform duration-400 ease-out group-hover:scale-108 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.5)]"
             loading="lazy"
             referrerPolicy="no-referrer"
           />
         ) : (
-          <div className="flex flex-col items-center justify-center text-center p-4 text-[#AAB8CA]">
+          <div className="relative z-10 flex flex-col items-center justify-center text-center p-4 text-[#AAB8CA]">
             <ImageOff className="w-8 h-8 text-[#AAB8CA]/60 mb-2" />
             <span className="text-xs font-medium">{product.name}</span>
           </div>
@@ -99,16 +108,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
         <button
           onClick={handleAddToCart}
           aria-label={`Adicionar ${product.name} ao carrinho`}
-          className={`w-full py-2.5 px-4 rounded-xl font-semibold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-97 ${
-            justAdded
-              ? 'bg-[#35D49A] text-[#04172B]'
-              : 'bg-white hover:bg-[#F5F8FC] text-[#04172B] hover:shadow-[0_0_16px_rgba(255,255,255,0.4)]'
+          className={`btn-3d w-full py-3 px-4 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer ${
+            justAdded ? 'btn-3d-green' : 'btn-3d-white'
           }`}
         >
           {justAdded ? (
             <>
               <Check className="w-4 h-4 stroke-[3]" />
-              <span>Adicionado!</span>
+              <span>Adicionado ao Pedido!</span>
             </>
           ) : (
             <>
@@ -118,15 +125,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
           )}
         </button>
 
-        {/* View Details / Ficha Técnica link */}
+        {/* View Details / Ficha Técnica button */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             onOpenDetails(product);
           }}
-          className="w-full py-1.5 text-center text-xs font-medium text-[#AAB8CA] hover:text-[#42C8FF] transition-colors flex items-center justify-center gap-1 cursor-pointer"
+          className="btn-3d w-full py-2 px-3 rounded-lg text-center text-xs font-semibold text-[#AAB8CA] hover:text-[#F5F8FC] bg-[#04172B]/70 hover:bg-[#082E5A] border border-white/10 hover:border-[#42C8FF]/50 shadow-[0_2px_0_#04172B] hover:shadow-[0_4px_0_#04172B,0_6px_16px_rgba(22,135,255,0.25)] flex items-center justify-center gap-1.5 cursor-pointer mt-1"
         >
-          <FileText className="w-3.5 h-3.5" />
+          <FileText className="w-3.5 h-3.5 text-[#42C8FF]" />
           <span>Ficha técnica & detalhes</span>
         </button>
       </div>

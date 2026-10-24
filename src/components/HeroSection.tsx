@@ -39,10 +39,10 @@ export const HeroSection: React.FC = () => {
         <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
           <button
             onClick={scrollToCatalog}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-[#1687FF] hover:bg-[#1687FF]/90 text-white font-semibold text-sm uppercase tracking-wider transition-all shadow-[0_0_24px_rgba(22,135,255,0.45)] hover:shadow-[0_0_32px_rgba(66,200,255,0.6)] active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+            className="btn-3d btn-3d-blue w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer"
           >
             <span>Explorar Produtos</span>
-            <ChevronDown className="w-4 h-4" />
+            <ChevronDown className="w-4 h-4 stroke-[2.5]" />
           </button>
         </div>
 
@@ -50,7 +50,7 @@ export const HeroSection: React.FC = () => {
         <div className="mt-10 pt-8 border-t border-white/5 w-full grid grid-cols-3 gap-2 sm:gap-6 text-center text-xs text-[#AAB8CA]">
           <div>
             <span className="block font-bold text-sm sm:text-base text-[#F5F8FC] tabular-nums">17</span>
-            <span>Itens Selecionados</span>
+            <span>Itens Disponíveis</span>
           </div>
           <div>
             <span className="block font-bold text-sm sm:text-base text-[#F5F8FC]">Linha Barba & Cabelo</span>

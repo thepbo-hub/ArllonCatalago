@@ -58,16 +58,16 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
   return (
     <div id="catalogo" className="w-full space-y-4 pt-4 pb-2">
       {/* Category Tabs: Functional segmented control */}
-      <div className="flex items-center gap-1.5 sm:gap-2 p-1.5 bg-[#082E5A]/50 border border-white/5 rounded-xl overflow-x-auto no-scrollbar">
+      <div className="flex items-center gap-2 p-1.5 bg-[#082E5A]/50 border border-white/10 rounded-2xl overflow-x-auto no-scrollbar shadow-inner">
         <button
           onClick={() => {
             onCategoryChange('TODOS');
             onSubcategoryChange('TODAS');
           }}
-          className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+          className={`btn-3d px-4 py-2.5 text-xs sm:text-sm font-bold rounded-xl whitespace-nowrap cursor-pointer ${
             category === 'TODOS'
-              ? 'bg-[#1687FF] text-white shadow-[0_0_14px_rgba(22,135,255,0.4)]'
-              : 'text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340]/60'
+              ? 'btn-3d-blue text-white'
+              : 'text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340]/80 border border-transparent'
           }`}
         >
           TODOS OS PRODUTOS
@@ -78,10 +78,10 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             onCategoryChange('CABELO');
             onSubcategoryChange('TODAS');
           }}
-          className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+          className={`btn-3d px-4 py-2.5 text-xs sm:text-sm font-bold rounded-xl whitespace-nowrap cursor-pointer ${
             category === 'CABELO'
-              ? 'bg-[#1687FF] text-white shadow-[0_0_14px_rgba(22,135,255,0.4)]'
-              : 'text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340]/60'
+              ? 'btn-3d-blue text-white'
+              : 'text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340]/80 border border-transparent'
           }`}
         >
           CABELO
@@ -92,10 +92,10 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             onCategoryChange('BARBA');
             onSubcategoryChange('TODAS');
           }}
-          className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+          className={`btn-3d px-4 py-2.5 text-xs sm:text-sm font-bold rounded-xl whitespace-nowrap cursor-pointer ${
             category === 'BARBA'
-              ? 'bg-[#1687FF] text-white shadow-[0_0_14px_rgba(22,135,255,0.4)]'
-              : 'text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340]/60'
+              ? 'btn-3d-blue text-white'
+              : 'text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340]/80 border border-transparent'
           }`}
         >
           BARBA
@@ -106,10 +106,10 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             onCategoryChange('ACESSÓRIOS');
             onSubcategoryChange('TODAS');
           }}
-          className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg transition-all whitespace-nowrap cursor-pointer ${
+          className={`btn-3d px-4 py-2.5 text-xs sm:text-sm font-bold rounded-xl whitespace-nowrap cursor-pointer ${
             category === 'ACESSÓRIOS'
-              ? 'bg-[#1687FF] text-white shadow-[0_0_14px_rgba(22,135,255,0.4)]'
-              : 'text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340]/60'
+              ? 'btn-3d-blue text-white'
+              : 'text-[#AAB8CA] hover:text-[#F5F8FC] hover:bg-[#0B2340]/80 border border-transparent'
           }`}
         >
           ACESSÓRIOS
@@ -118,16 +118,16 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
 
       {/* Subcategories bar (scrollable on mobile) */}
       {availableSubcategories.length > 1 && (
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 pt-1 no-scrollbar text-xs">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1.5 pt-1 no-scrollbar text-xs">
           <span className="text-[11px] font-semibold text-[#AAB8CA] uppercase tracking-wider shrink-0 mr-1 hidden sm:inline">
             Subcategoria:
           </span>
           <button
             onClick={() => onSubcategoryChange('TODAS')}
-            className={`px-3 py-1.5 rounded-lg border transition-all whitespace-nowrap cursor-pointer ${
+            className={`btn-3d px-3.5 py-2 rounded-xl whitespace-nowrap cursor-pointer font-semibold ${
               subcategory === 'TODAS'
-                ? 'bg-[#082E5A] border-[#42C8FF] text-[#F5F8FC] font-semibold shadow-xs'
-                : 'bg-[#04172B]/60 border-white/5 text-[#AAB8CA] hover:text-[#F5F8FC] hover:border-white/20'
+                ? 'btn-3d-navy text-white font-bold'
+                : 'bg-[#04172B]/80 border border-white/10 text-[#AAB8CA] hover:text-[#F5F8FC] hover:border-white/20'
             }`}
           >
             Todas
@@ -138,10 +138,10 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
               <button
                 key={sub}
                 onClick={() => onSubcategoryChange(sub)}
-                className={`px-3 py-1.5 rounded-lg border transition-all whitespace-nowrap cursor-pointer ${
+                className={`btn-3d px-3.5 py-2 rounded-xl whitespace-nowrap cursor-pointer font-semibold ${
                   isActive
-                    ? 'bg-[#082E5A] border-[#42C8FF] text-[#F5F8FC] font-semibold shadow-xs'
-                    : 'bg-[#04172B]/60 border-white/5 text-[#AAB8CA] hover:text-[#F5F8FC] hover:border-white/20'
+                    ? 'btn-3d-navy text-white font-bold'
+                    : 'bg-[#04172B]/80 border border-white/10 text-[#AAB8CA] hover:text-[#F5F8FC] hover:border-white/20'
                 }`}
               >
                 {sub}
@@ -230,9 +230,9 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           {isAnyFilterActive && (
             <button
               onClick={onResetFilters}
-              className="px-3 py-2 rounded-lg bg-[#FF5A65]/10 hover:bg-[#FF5A65]/20 text-[#FF5A65] border border-[#FF5A65]/30 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="btn-3d btn-3d-red px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Limpar filtros</span>
             </button>
           )}
