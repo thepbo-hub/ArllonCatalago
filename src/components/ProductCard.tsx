@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingBag, Check, FileText, Sparkles, ImageOff } from 'lucide-react';
 import { Product, STORE_INFO } from '../data/products';
 import { useCart } from '../context/CartContext';
@@ -7,12 +7,44 @@ import { RatingDots } from './RatingDots';
 interface ProductCardProps {
   product: Product;
   onOpenDetails: (product: Product) => void;
+  index?: number;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails, index = 0 }) => {
   const { addToCart, formatCurrency } = useCart();
   const [imageError, setImageError] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLElement>(null);
+
+  // Progressive scroll-reveal when product enters viewport on mobile/desktop
+  useEffect(() => {
+    if (!cardRef.current) return;
+
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.08,
+        rootMargin: '40px 0px -20px 0px',
+      }
+    );
+
+    observer.observe(cardRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -21,10 +53,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
     setTimeout(() => setJustAdded(false), 1400);
   };
 
+  const staggerDelay = (index % 4) * 60;
+
   return (
     <article
+      ref={cardRef}
       onClick={() => onOpenDetails(product)}
-      className="group relative flex flex-col justify-between rounded-2xl bg-gradient-to-b from-[#0B2340] to-[#082E5A] border border-[#1687FF]/20 hover:border-[#42C8FF]/60 transition-all duration-300 p-4 sm:p-5 cursor-pointer overflow-hidden shadow-lg hover:shadow-[0_12px_28px_rgba(4,23,43,0.85)]"
+      style={{
+        transitionDelay: isVisible ? `${staggerDelay}ms` : '0ms',
+      }}
+      className={`group relative flex flex-col justify-between rounded-2xl bg-gradient-to-b from-[#0B2340] to-[#082E5A] border border-[#1687FF]/20 hover:border-[#42C8FF]/60 p-4 sm:p-5 cursor-pointer overflow-hidden shadow-lg hover:shadow-[0_12px_28px_rgba(4,23,43,0.85)] transition-all duration-500 ease-out will-change-transform ${
+        isVisible
+          ? 'opacity-100 translate-y-0 scale-100'
+          : 'opacity-0 translate-y-7 scale-[0.98]'
+      }`}
     >
       {/* Top Bar: Indicators & Content Badge */}
       <div className="relative z-10 flex items-start justify-between gap-2 min-h-[28px] mb-2">

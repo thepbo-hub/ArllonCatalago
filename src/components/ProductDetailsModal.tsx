@@ -29,17 +29,32 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
   useEffect(() => {
     if (!product) return;
 
+    const scrollY = window.scrollY;
+    const originalStyle = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
       }
     };
-
-    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = originalStyle.overflow;
+      document.body.style.position = originalStyle.position;
+      document.body.style.top = originalStyle.top;
+      document.body.style.width = originalStyle.width;
+      window.scrollTo(0, scrollY);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [product, onClose]);
@@ -59,25 +74,39 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fadeIn"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-start sm:justify-center p-2.5 xs:p-4 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain animate-fadeIn"
       onClick={onClose}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-3xl max-h-[92dvh] flex flex-col md:flex-row overflow-hidden rounded-2xl bg-gradient-to-b from-[#0B2340] to-[#04172B] border border-[#1687FF]/40 shadow-[0_20px_50px_rgba(4,23,43,0.9)]"
+        className="relative w-full max-w-3xl my-auto max-h-[92vh] sm:max-h-[88vh] flex flex-col overflow-hidden rounded-2xl bg-gradient-to-b from-[#0B2340] to-[#04172B] border border-[#1687FF]/40 shadow-[0_20px_50px_rgba(4,23,43,0.95)]"
       >
-        {/* Top/Mobile Close Button */}
-        <button
-          onClick={onClose}
-          aria-label="Fechar detalhes do produto"
-          className="btn-3d btn-3d-navy absolute top-4 right-4 z-20 p-2.5 rounded-full cursor-pointer"
-        >
-          <X className="w-5 h-5 text-[#F5F8FC]" />
-        </button>
+        {/* Header com botão de saída centralizado dentro do enquadramento, com o 'X' no canto superior direito do botão */}
+        <div className="w-full shrink-0 flex items-center justify-center pt-3 pb-2.5 px-4 bg-[#04172B]/95 border-b border-[#1687FF]/20 z-30">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Fechar especificações do produto"
+            className="relative btn-3d btn-3d-navy px-8 py-2 sm:px-10 sm:py-2.5 rounded-xl flex items-center justify-center cursor-pointer bg-[#082E5A] hover:bg-[#0B366B] border border-[#42C8FF]/50 shadow-[0_4px_12px_rgba(0,0,0,0.5)] group transition-all"
+          >
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#F5F8FC] group-hover:text-white pr-2.5">
+              Fechar Especificações
+            </span>
+            {/* O X no canto superior direito desse mesmo botão centralizado */}
+            <span
+              className="absolute -top-2.5 -right-2.5 w-7 h-7 rounded-full bg-[#1687FF] group-hover:bg-[#FF5A65] text-white flex items-center justify-center border-2 border-[#04172B] shadow-[0_0_12px_#1687FF] transition-all transform group-hover:scale-110"
+              aria-hidden="true"
+            >
+              <X className="w-4 h-4 stroke-[3]" />
+            </span>
+          </button>
+        </div>
 
-        {/* Left Column: Product Image Showcase */}
-        <div className="w-full md:w-1/2 p-6 sm:p-8 flex flex-col items-center justify-center bg-gradient-to-b from-[#04172B]/80 to-[#082E5A]/40 border-b md:border-b-0 md:border-r border-[#1687FF]/20 relative">
-          <div className="w-full max-w-[280px] h-60 sm:h-72 flex items-center justify-center">
+        {/* Content body: 2 columns on tablet/desktop, vertical on mobile */}
+        <div className="flex-1 min-h-0 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden">
+          {/* Left Column: Product Image Showcase */}
+        <div className="w-full md:w-5/12 p-4 sm:p-8 flex flex-col items-center justify-center bg-gradient-to-b from-[#04172B]/90 to-[#082E5A]/40 border-b md:border-b-0 md:border-r border-[#1687FF]/20 shrink-0 relative">
+          <div className="w-full max-w-[190px] xs:max-w-[220px] sm:max-w-[280px] h-36 xs:h-44 sm:h-72 flex items-center justify-center">
             {!imageError ? (
               <img
                 src={product.image}
@@ -94,15 +123,15 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
             )}
           </div>
 
-          <div className="mt-4 flex items-center justify-center gap-3 text-xs text-[#AAB8CA]">
-            <span>Conteúdo líquido: <strong className="text-[#F5F8FC]">{product.content}</strong></span>
+          <div className="mt-2 sm:mt-4 flex items-center justify-center gap-2 sm:gap-3 text-[11px] sm:text-xs text-[#AAB8CA]">
+            <span>Conteúdo: <strong className="text-[#F5F8FC]">{product.content}</strong></span>
             <span>·</span>
-            <span className="text-[#35D49A]">Disponível para pedido</span>
+            <span className="text-[#35D49A]">Disponível</span>
           </div>
         </div>
 
         {/* Right Column: Information, Specs & Actions */}
-        <div className="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto max-h-[55vh] md:max-h-[85vh]">
+        <div className="w-full md:w-7/12 p-4 sm:p-8 flex flex-col justify-between flex-1 min-h-0 overflow-y-auto overscroll-contain">
           <div className="space-y-5">
             {/* Header info */}
             <div>
@@ -222,7 +251,16 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                 </>
               )}
             </button>
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full py-2 text-center text-xs font-semibold text-[#AAB8CA] hover:text-[#42C8FF] transition-colors cursor-pointer"
+            >
+              Voltar ao catálogo
+            </button>
           </div>
+        </div>
         </div>
       </div>
     </div>

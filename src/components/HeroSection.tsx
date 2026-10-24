@@ -14,7 +14,7 @@ export const HeroSection: React.FC = () => {
     <section className="relative overflow-hidden bg-gradient-to-b from-[#04172B] via-[#082E5A]/40 to-[#04172B] pt-12 pb-14 sm:pt-16 sm:pb-20 border-b border-[#082E5A]/40">
       {/* Subtle radial ambient background glow */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#1687FF]/10 blur-[120px] rounded-full pointer-events-none" 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[420px] h-[220px] bg-[#1687FF]/10 blur-[100px] rounded-full pointer-events-none" 
         aria-hidden="true"
       />
 
@@ -26,20 +26,20 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Main Title */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#F5F8FC] uppercase leading-tight max-w-3xl">
+        <h1 className="text-2xl xs:text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#F5F8FC] uppercase leading-tight max-w-3xl">
           PRODUTOS PROFISSIONAIS. <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1687FF] to-[#42C8FF]">RESULTADOS DE RESPEITO.</span>
         </h1>
 
         {/* Subtitle */}
-        <p className="mt-4 sm:mt-5 text-base sm:text-lg text-[#AAB8CA] max-w-2xl leading-relaxed font-normal">
+        <p className="mt-3 sm:mt-5 text-sm sm:text-lg text-[#AAB8CA] max-w-2xl leading-relaxed font-normal">
           {STORE_INFO.subtitle}
         </p>
 
         {/* Call to action */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           <button
             onClick={scrollToCatalog}
-            className="btn-3d btn-3d-blue w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer"
+            className="btn-3d btn-3d-blue w-full sm:w-auto px-8 py-3.5 sm:py-4 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer"
           >
             <span>Explorar Produtos</span>
             <ChevronDown className="w-4 h-4 stroke-[2.5]" />
@@ -47,18 +47,18 @@ export const HeroSection: React.FC = () => {
         </div>
 
         {/* Micro highlights (clean metadata, no fake claims) */}
-        <div className="mt-10 pt-8 border-t border-white/5 w-full grid grid-cols-3 gap-2 sm:gap-6 text-center text-xs text-[#AAB8CA]">
-          <div>
-            <span className="block font-bold text-sm sm:text-base text-[#F5F8FC] tabular-nums">17</span>
+        <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-white/5 w-full grid grid-cols-3 gap-1.5 sm:gap-6 text-center text-[10px] xs:text-xs text-[#AAB8CA]">
+          <div className="px-1">
+            <span className="block font-bold text-xs xs:text-sm sm:text-base text-[#F5F8FC] tabular-nums">17</span>
             <span>Itens Disponíveis</span>
           </div>
-          <div>
-            <span className="block font-bold text-sm sm:text-base text-[#F5F8FC]">Linha Barba & Cabelo</span>
+          <div className="px-1">
+            <span className="block font-bold text-xs xs:text-sm sm:text-base text-[#F5F8FC] leading-tight">Barba & Cabelo</span>
             <span>Uso Profissional</span>
           </div>
-          <div>
-            <span className="block font-bold text-sm sm:text-base text-[#F5F8FC]">WhatsApp Direto</span>
-            <span>Atendimento Rápido</span>
+          <div className="px-1">
+            <span className="block font-bold text-xs xs:text-sm sm:text-base text-[#F5F8FC] leading-tight">WhatsApp Direto</span>
+            <span>Atendimento</span>
           </div>
         </div>
       </div>

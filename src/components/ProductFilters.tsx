@@ -175,17 +175,17 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           )}
         </div>
 
-        {/* Sort & Granular Filters */}
-        <div className="flex flex-wrap items-center gap-2">
+        {/* Sort & Granular Filters: Clean 2-column grid on mobile, flex row on desktop */}
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 w-full md:w-auto">
           {/* Sort selector */}
-          <div className="relative inline-flex items-center">
+          <div className="relative w-full sm:w-auto inline-flex items-center">
             <ArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#AAB8CA] pointer-events-none" />
             <select
               value={sortBy}
               onChange={(e) => onSortChange(e.target.value as SortOption)}
-              className="pl-8 pr-7 py-2 rounded-lg bg-[#082E5A]/40 border border-white/10 hover:border-white/20 text-xs text-[#F5F8FC] font-medium focus:outline-none focus:border-[#42C8FF] cursor-pointer appearance-none"
+              className="w-full pl-8 pr-7 py-2 rounded-lg bg-[#082E5A]/40 border border-white/10 hover:border-white/20 text-xs text-[#F5F8FC] font-medium focus:outline-none focus:border-[#42C8FF] cursor-pointer appearance-none truncate"
             >
-              <option value="default" className="bg-[#04172B] text-white">Ordem recomendada</option>
+              <option value="default" className="bg-[#04172B] text-white">Recomendados</option>
               <option value="name-asc" className="bg-[#04172B] text-white">Nome (A - Z)</option>
               <option value="price-asc" className="bg-[#04172B] text-white">Menor Preço</option>
               <option value="price-desc" className="bg-[#04172B] text-white">Maior Preço</option>
@@ -193,36 +193,36 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           </div>
 
           {/* Hold Level filter (only for styling items) */}
-          <div className="relative inline-flex items-center">
+          <div className="relative w-full sm:w-auto inline-flex items-center">
             <select
               value={holdFilter ?? ''}
               onChange={(e) => {
                 const val = e.target.value;
                 onHoldFilterChange(val ? (parseInt(val) as HoldLevel) : null);
               }}
-              className="px-3 py-2 rounded-lg bg-[#082E5A]/40 border border-white/10 hover:border-white/20 text-xs text-[#F5F8FC] font-medium focus:outline-none focus:border-[#42C8FF] cursor-pointer"
+              className="w-full px-2.5 py-2 rounded-lg bg-[#082E5A]/40 border border-white/10 hover:border-white/20 text-xs text-[#F5F8FC] font-medium focus:outline-none focus:border-[#42C8FF] cursor-pointer truncate"
             >
               <option value="" className="bg-[#04172B] text-white">Fixação: Todas</option>
-              <option value="1" className="bg-[#04172B] text-white">Fixação: 1/4 (Leve)</option>
-              <option value="2" className="bg-[#04172B] text-white">Fixação: 2/4 (Média)</option>
-              <option value="4" className="bg-[#04172B] text-white">Fixação: 4/4 (Extra forte)</option>
+              <option value="1" className="bg-[#04172B] text-white">Fixação: 1 (Leve)</option>
+              <option value="2" className="bg-[#04172B] text-white">Fixação: 2 (Média)</option>
+              <option value="4" className="bg-[#04172B] text-white">Fixação: 4 (Extra)</option>
             </select>
           </div>
 
           {/* Shine Level filter */}
-          <div className="relative inline-flex items-center">
+          <div className="relative w-full sm:w-auto inline-flex items-center">
             <select
               value={shineFilter ?? ''}
               onChange={(e) => {
                 const val = e.target.value;
                 onShineFilterChange(val ? (parseInt(val) as ShineLevel) : null);
               }}
-              className="px-3 py-2 rounded-lg bg-[#082E5A]/40 border border-white/10 hover:border-white/20 text-xs text-[#F5F8FC] font-medium focus:outline-none focus:border-[#42C8FF] cursor-pointer"
+              className="w-full px-2.5 py-2 rounded-lg bg-[#082E5A]/40 border border-white/10 hover:border-white/20 text-xs text-[#F5F8FC] font-medium focus:outline-none focus:border-[#42C8FF] cursor-pointer truncate"
             >
               <option value="" className="bg-[#04172B] text-white">Brilho: Todos</option>
-              <option value="1" className="bg-[#04172B] text-white">Brilho: 1/4 (Matte / Baixo)</option>
-              <option value="2" className="bg-[#04172B] text-white">Brilho: 2/4 (Natural / Moderado)</option>
-              <option value="4" className="bg-[#04172B] text-white">Brilho: 4/4 (Intenso)</option>
+              <option value="1" className="bg-[#04172B] text-white">Brilho: 1 (Matte)</option>
+              <option value="2" className="bg-[#04172B] text-white">Brilho: 2 (Natural)</option>
+              <option value="4" className="bg-[#04172B] text-white">Brilho: 4 (Intenso)</option>
             </select>
           </div>
 
@@ -230,7 +230,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           {isAnyFilterActive && (
             <button
               onClick={onResetFilters}
-              className="btn-3d btn-3d-red px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+              className="btn-3d btn-3d-red w-full sm:w-auto col-span-2 sm:col-span-1 px-3.5 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Limpar filtros</span>

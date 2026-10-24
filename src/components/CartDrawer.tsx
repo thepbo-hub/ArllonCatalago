@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { X, Trash2, Plus, Minus, ShoppingBag, Copy, Check, MessageSquare } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { X, Trash2, Plus, Minus, ShoppingBag, MessageSquare } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { STORE_INFO } from '../data/products';
 
@@ -18,13 +18,22 @@ export const CartDrawer: React.FC = () => {
     formatCurrency,
   } = useCart();
 
-  const [copied, setCopied] = useState(false);
-
-  // Lock background scrolling and attach Escape key listener when cart is open
+  // Lock background scrolling on mobile & desktop, and attach Escape key listener
   useEffect(() => {
     if (!isCartOpen) return;
-    const originalOverflow = document.body.style.overflow;
+
+    const scrollY = window.scrollY;
+    const originalStyle = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+    };
+
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeCart();
@@ -32,55 +41,31 @@ export const CartDrawer: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = originalOverflow;
+      document.body.style.overflow = originalStyle.overflow;
+      document.body.style.position = originalStyle.position;
+      document.body.style.top = originalStyle.top;
+      document.body.style.width = originalStyle.width;
+      window.scrollTo(0, scrollY);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isCartOpen, closeCart]);
 
   if (!isCartOpen) return null;
 
-  const handleCopyMessage = async () => {
-    const msg = generateWhatsAppMessage();
-    if (!msg) return;
-
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(msg);
-      } else {
-        throw new Error('Clipboard API unavailable');
-      }
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2200);
-    } catch {
-      // Fallback textarea copy
-      const textarea = document.createElement('textarea');
-      textarea.value = msg;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.focus();
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2200);
-    }
-  };
-
   return (
     <div
       role="dialog"
       aria-modal="true"
       aria-labelledby="cart-title"
-      className="fixed inset-0 z-50 h-[100dvh] w-full bg-black/75 backdrop-blur-xs flex justify-end animate-fadeIn overflow-hidden"
+      className="fixed inset-0 z-50 w-full h-full bg-black/80 backdrop-blur-xs flex justify-end overflow-hidden"
       onClick={closeCart}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-full sm:max-w-md h-[100dvh] max-h-[100dvh] bg-[#04172B] border-l border-[#082E5A] shadow-2xl flex flex-col min-h-0 overflow-hidden"
+        className="w-full sm:max-w-md h-full bg-[#04172B] border-l border-[#082E5A] shadow-2xl flex flex-col min-h-0 overflow-hidden animate-drawer-slide"
       >
         {/* Cart Header - Fixed top */}
-        <div className="shrink-0 p-4 sm:p-5 border-b border-[#082E5A] flex items-center justify-between bg-[#0B2340]/60">
+        <div className="shrink-0 p-4 sm:p-5 border-b border-[#082E5A] flex items-center justify-between bg-[#0B2340]">
           <div className="flex items-center gap-2.5">
             <ShoppingBag className="w-5 h-5 text-[#42C8FF]" />
             <h2 id="cart-title" className="text-base sm:text-lg font-bold text-[#F5F8FC] uppercase tracking-wide">
@@ -194,9 +179,9 @@ export const CartDrawer: React.FC = () => {
           )}
         </div>
 
-        {/* Footer / Summary and WhatsApp Checkout - Fixed bottom with safe-area protection */}
+        {/* Footer / Summary and WhatsApp Checkout - Solid background with safe-area protection */}
         {items.length > 0 && (
-          <div className="shrink-0 p-4 sm:p-5 border-t border-[#082E5A] bg-[#0B2340]/90 backdrop-blur-md space-y-3 pb-[max(1rem,env(safe-area-inset-bottom,1rem))]">
+          <div className="shrink-0 p-4 sm:p-5 border-t border-[#082E5A] bg-[#04172B] space-y-3 pb-[max(1.25rem,env(safe-area-inset-bottom,1.25rem))]">
             {/* Total summary */}
             <div className="flex items-baseline justify-between pt-0.5">
               <span className="text-xs uppercase tracking-wider text-[#AAB8CA] font-semibold">
@@ -223,27 +208,6 @@ export const CartDrawer: React.FC = () => {
               <MessageSquare className="w-5 h-5 fill-current shrink-0" />
               <span>Finalizar Pedido pelo WhatsApp</span>
             </a>
-
-            {/* Fallback & Copy tool */}
-            <div className="pt-0.5">
-              <button
-                onClick={handleCopyMessage}
-                className="btn-3d btn-3d-navy w-full py-2.5 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer"
-                title="Copiar mensagem organizada para colar no WhatsApp se necessário"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4 text-[#35D49A] stroke-[3]" />
-                    <span className="text-[#35D49A] font-bold">Mensagem copiada para a área de transferência!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4 text-[#42C8FF]" />
-                    <span>Copiar resumo do pedido</span>
-                  </>
-                )}
-              </button>
-            </div>
 
             <p className="text-[10px] text-center text-[#AAB8CA]/80 leading-tight">
               Destino oficial: <span className="text-[#42C8FF]">{STORE_INFO.name}</span>
