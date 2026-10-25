@@ -27,7 +27,8 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'arllon_barbearia_cart_v1';
+const SESSION_STORAGE_KEY = 'arllon_barbearia_cart_session_v2';
+const LEGACY_STORAGE_KEYS = ['arllon_barbearia_cart_v1', 'arllon_barbearia_cart'];
 
 export function formatBRL(value: number): string {
   return value.toLocaleString('pt-BR', {
@@ -40,8 +41,14 @@ export function formatBRL(value: number): string {
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<Record<string, number>>(() => {
+    // Purge old persistent localStorage so previously stored orders do not linger
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      LEGACY_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
+    } catch {}
+
+    try {
+      // Use sessionStorage so the cart automatically disappears when the biosite is closed
+      const saved = sessionStorage.getItem(SESSION_STORAGE_KEY);
       if (!saved) return {};
       const parsed = JSON.parse(saved);
       if (typeof parsed !== 'object' || parsed === null) return {};
@@ -62,11 +69,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Sync with sessionStorage (automatically wiped out when the user closes the biosite window/tab)
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+      if (Object.keys(cart).length === 0) {
+        sessionStorage.removeItem(SESSION_STORAGE_KEY);
+      } else {
+        sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(cart));
+      }
     } catch (e) {
-      console.error('Failed to save cart to localStorage', e);
+      console.error('Failed to sync cart with sessionStorage', e);
     }
   }, [cart]);
 
@@ -116,6 +128,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const clearCart = () => {
     setCart({});
+    try {
+      sessionStorage.removeItem(SESSION_STORAGE_KEY);
+      LEGACY_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
+    } catch {}
   };
 
   const openCart = () => setIsCartOpen(true);

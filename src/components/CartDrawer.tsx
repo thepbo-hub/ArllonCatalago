@@ -202,6 +202,11 @@ export const CartDrawer: React.FC = () => {
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                   navigator.clipboard.writeText(msg).catch(() => {});
                 }
+                // Limpa o pedido após o envio para não continuar com o conteúdo anterior
+                setTimeout(() => {
+                  clearCart();
+                  closeCart();
+                }, 150);
               }}
               className="btn-3d btn-3d-green w-full py-3.5 sm:py-4 px-4 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer no-underline text-center"
             >
