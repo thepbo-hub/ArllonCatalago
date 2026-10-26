@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, Trash2, Plus, Minus, ShoppingBag, MessageSquare } from 'lucide-react';
+import { X, Trash2, Plus, Minus, ShoppingCart, MessageSquare } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { STORE_INFO } from '../data/products';
 
@@ -67,9 +67,9 @@ export const CartDrawer: React.FC = () => {
         {/* Cart Header - Fixed top */}
         <div className="shrink-0 p-4 sm:p-5 border-b border-[#082E5A] flex items-center justify-between bg-[#0B2340]">
           <div className="flex items-center gap-2.5">
-            <ShoppingBag className="w-5 h-5 text-[#42C8FF]" />
+            <ShoppingCart className="w-5 h-5 text-[#42C8FF] stroke-[2.2]" />
             <h2 id="cart-title" className="text-base sm:text-lg font-bold text-[#F5F8FC] uppercase tracking-wide">
-              Seu Pedido
+              Seu Carrinho
             </h2>
             <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#082E5A] text-[#42C8FF] border border-[#1687FF]/30 tabular-nums">
               {totalItems} {totalItems === 1 ? 'item' : 'itens'}
@@ -101,11 +101,11 @@ export const CartDrawer: React.FC = () => {
           {items.length === 0 ? (
             <div className="h-full min-h-[260px] flex flex-col items-center justify-center text-center p-6 space-y-4">
               <div className="w-16 h-16 rounded-full bg-[#082E5A]/50 border border-white/5 flex items-center justify-center text-[#AAB8CA]">
-                <ShoppingBag className="w-8 h-8 opacity-60" />
+                <ShoppingCart className="w-8 h-8 opacity-60 stroke-[1.8]" />
               </div>
               <div className="space-y-1">
                 <h3 className="text-base font-bold text-[#F5F8FC]">Seu carrinho está vazio.</h3>
-                <p className="text-xs text-[#AAB8CA]">Explore os produtos e monte seu pedido.</p>
+                <p className="text-xs text-[#AAB8CA]">Explore os produtos e monte seu carrinho.</p>
               </div>
               <button
                 onClick={closeCart}
@@ -185,7 +185,7 @@ export const CartDrawer: React.FC = () => {
             {/* Total summary */}
             <div className="flex items-baseline justify-between pt-0.5">
               <span className="text-xs uppercase tracking-wider text-[#AAB8CA] font-semibold">
-                Total do Pedido:
+                Total do Carrinho:
               </span>
               <span className="text-xl sm:text-2xl font-black text-[#F5F8FC] tabular-nums tracking-tight">
                 {formatCurrency(totalPrice)}

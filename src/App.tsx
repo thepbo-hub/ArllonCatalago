@@ -14,7 +14,7 @@ import { ProductDetailsModal } from './components/ProductDetailsModal';
 import { CartDrawer } from './components/CartDrawer';
 import { Footer } from './components/Footer';
 import { Toast } from './components/Toast';
-import { ShoppingBag, MessageSquare, RotateCcw } from 'lucide-react';
+import { ShoppingCart, RotateCcw } from 'lucide-react';
 
 function CatalogContent() {
   const { totalItems, totalPrice, isCartOpen, openCart, formatCurrency } = useCart();
@@ -166,7 +166,7 @@ function CatalogContent() {
       {/* Mobile Sticky Bottom Bar (when cart has items and drawer is closed) */}
       {totalItems > 0 && !isCartOpen && (
         <aside
-          aria-label="Resumo rápido do pedido"
+          aria-label="Resumo rápido do carrinho"
           className="fixed bottom-0 left-0 right-0 z-30 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom,0.75rem))] bg-[#04172B]/95 backdrop-blur-md border-t border-[#082E5A] md:hidden shadow-[0_-10px_25px_rgba(4,23,43,0.8)] animate-slideUp"
         >
           <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
@@ -183,8 +183,8 @@ function CatalogContent() {
               onClick={openCart}
               className="btn-3d btn-3d-green flex-1 py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
             >
-              <MessageSquare className="w-4 h-4 fill-current" />
-              <span>Ver pedido</span>
+              <ShoppingCart className="w-4 h-4 stroke-[2.4]" />
+              <span>Ver carrinho</span>
             </button>
           </div>
         </aside>

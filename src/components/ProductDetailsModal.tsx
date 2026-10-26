@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, ShoppingBag, Check, CheckCircle2, ImageOff, ArrowLeft } from 'lucide-react';
+import { X, ShoppingCart, Check, CheckCircle2, ImageOff, ArrowLeft } from 'lucide-react';
 import { Product } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { RatingDots } from './RatingDots';
@@ -246,7 +246,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="w-5 h-5" />
+                  <ShoppingCart className="w-5 h-5 stroke-[2.2]" />
                   <span>Adicionar ao carrinho · {formatCurrency(product.price * quantity)}</span>
                 </>
               )}

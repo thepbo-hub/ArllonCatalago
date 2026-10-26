@@ -68,6 +68,28 @@
   }
 }
 
+@keyframes blade-sweep {
+  0%, 65% {
+    transform: translateX(-160%) skewX(-20deg);
+    opacity: 0;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  85% {
+    transform: translateX(260%) skewX(-20deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(260%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+.animate-blade-sweep {
+  animation: blade-sweep 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
 .animate-spin-slow {
   animation: spin-slow 16s linear infinite;
 }

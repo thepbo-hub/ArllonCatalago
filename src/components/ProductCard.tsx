@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShoppingBag, Check, FileText, Sparkles, ImageOff } from 'lucide-react';
+import { ShoppingCart, Check, FileText, Sparkles, ImageOff } from 'lucide-react';
 import { Product, STORE_INFO } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { RatingDots } from './RatingDots';
@@ -157,12 +157,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
           {justAdded ? (
             <>
               <Check className="w-4 h-4 stroke-[3]" />
-              <span>Adicionado ao Pedido!</span>
+              <span>Adicionado ao carrinho!</span>
             </>
           ) : (
             <>
-              <ShoppingBag className="w-4 h-4" />
-              <span>Adicionar ao pedido</span>
+              <ShoppingCart className="w-4 h-4 stroke-[2.2]" />
+              <span>Adicionar ao carrinho</span>
             </>
           )}
         </button>

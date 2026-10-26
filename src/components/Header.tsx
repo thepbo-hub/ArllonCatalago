@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Search, Menu, X } from 'lucide-react';
+import { ShoppingCart, Search, Menu, X } from 'lucide-react';
 import { STORE_INFO, MainCategory } from '../data/products';
 import { useCart } from '../context/CartContext';
 
@@ -103,11 +103,12 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Cart Trigger */}
           <button
             onClick={openCart}
-            aria-label={`Carrinho com ${totalItems} itens`}
+            aria-label={`Ver carrinho com ${totalItems} itens`}
+            title="Ver carrinho"
             className="btn-3d btn-3d-navy relative flex items-center gap-2 p-2 sm:px-4 sm:py-2.5 rounded-xl cursor-pointer"
           >
             <div className="relative">
-              <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 text-[#42C8FF]" />
+              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 text-[#42C8FF] stroke-[2.2]" />
               {totalItems > 0 && (
                 <span className="absolute -top-2 -right-2 min-w-[16px] h-[16px] px-1 rounded-full bg-[#1687FF] text-white text-[9px] sm:text-[10px] font-bold flex items-center justify-center tabular-nums shadow-[0_0_8px_#1687FF]">
                   {totalItems}
@@ -115,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </div>
             <span className="hidden sm:inline text-xs font-semibold tracking-wide uppercase">
-              Carrinho
+              Ver carrinho
             </span>
           </button>
 
