@@ -95,11 +95,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const product = PRODUCTS.find((p) => p.id === productId);
     if (!product || !product.available) return;
 
+    // Sanitização e validação de quantidade: número inteiro positivo limitado entre 1 e 99
+    const safeQty = Math.min(99, Math.max(1, Math.floor(Number(quantity) || 1)));
+
     setCart((prev) => {
       const current = prev[productId] || 0;
       return {
         ...prev,
-        [productId]: current + Math.max(1, quantity),
+        [productId]: Math.min(99, current + safeQty),
       };
     });
 
@@ -109,10 +112,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const updateQuantity = (productId: string, quantity: number) => {
     setCart((prev) => {
       const next = { ...prev };
-      if (quantity <= 0) {
+      const safeQty = Math.floor(Number(quantity) || 0);
+      if (safeQty <= 0) {
         delete next[productId];
       } else {
-        next[productId] = Math.floor(quantity);
+        next[productId] = Math.min(99, safeQty);
       }
       return next;
     });

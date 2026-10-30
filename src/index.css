@@ -2,8 +2,9 @@
 
 @layer base {
   :root {
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-heading: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    /* Fontes locais e de sistema de alta performance sem dependência de serviços externos (LGPD) */
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-heading: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   html {
@@ -28,6 +29,30 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+  }
+
+  /* Acessibilidade WCAG 2.1 AA: Foco visível em navegação por teclado */
+  :focus-visible {
+    outline: 2px solid #42C8FF !important;
+    outline-offset: 3px !important;
+  }
+}
+
+/* Acessibilidade: Respeito à preferência do usuário por redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-blade-sweep,
+  .animate-spin-slow,
+  .animate-pulse-glow,
+  .animate-drawer-slide {
+    animation: none !important;
   }
 }
 

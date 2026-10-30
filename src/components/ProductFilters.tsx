@@ -57,6 +57,9 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
 
   return (
     <div id="catalogo" className="w-full space-y-4 pt-4 pb-2">
+      {/* Semantic accessible heading */}
+      <h2 className="sr-only">Catálogo de Produtos, Filtros e Busca</h2>
+
       {/* Category Tabs: Functional segmented control */}
       <div className="flex items-center gap-2 p-1.5 bg-[#082E5A]/50 border border-white/10 rounded-2xl overflow-x-auto no-scrollbar shadow-inner">
         <button
@@ -160,7 +163,12 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             id="search-input"
             type="text"
             value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
+            maxLength={60}
+            onChange={(e) => {
+              // Sanitização de input contra injeções de script e limitação de comprimento
+              const clean = e.target.value.replace(/[<>]/g, '').slice(0, 60);
+              onSearchChange(clean);
+            }}
             placeholder="Pesquisar por nome, efeito matte, barba, fixação..."
             className="w-full pl-10 pr-9 py-2 rounded-xl bg-[#082E5A]/40 border border-[#1687FF]/20 focus:border-[#42C8FF] focus:outline-none text-sm text-[#F5F8FC] placeholder-[#AAB8CA]/60 transition-all"
           />
@@ -182,6 +190,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             <ArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#AAB8CA] pointer-events-none" />
             <select
               value={sortBy}
+              aria-label="Ordenar produtos"
               onChange={(e) => onSortChange(e.target.value as SortOption)}
               className="w-full pl-8 pr-7 py-2 rounded-lg bg-[#082E5A]/40 border border-white/10 hover:border-white/20 text-xs text-[#F5F8FC] font-medium focus:outline-none focus:border-[#42C8FF] cursor-pointer appearance-none truncate"
             >
@@ -196,6 +205,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           <div className="relative w-full sm:w-auto inline-flex items-center">
             <select
               value={holdFilter ?? ''}
+              aria-label="Filtrar por nível de fixação"
               onChange={(e) => {
                 const val = e.target.value;
                 onHoldFilterChange(val ? (parseInt(val) as HoldLevel) : null);
@@ -213,6 +223,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           <div className="relative w-full sm:w-auto inline-flex items-center">
             <select
               value={shineFilter ?? ''}
+              aria-label="Filtrar por nível de brilho"
               onChange={(e) => {
                 const val = e.target.value;
                 onShineFilterChange(val ? (parseInt(val) as ShineLevel) : null);

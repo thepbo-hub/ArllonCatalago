@@ -110,7 +110,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
             {!imageError ? (
               <img
                 src={product.image}
-                alt={product.name}
+                alt={`Fotografia ampliada do produto ${product.name} (${product.content})`}
                 onError={() => setImageError(true)}
                 className="w-full h-full object-contain filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)]"
                 referrerPolicy="no-referrer"
@@ -149,14 +149,19 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
               </p>
             </div>
 
-            {/* Price display */}
-            <div className="p-3.5 rounded-xl bg-[#082E5A]/50 border border-white/5 flex items-baseline justify-between">
-              <span className="text-xs text-[#AAB8CA] font-medium uppercase tracking-wider">
-                Preço Unitário
-              </span>
-              <span className="text-2xl sm:text-3xl font-extrabold text-[#F5F8FC] tabular-nums tracking-tight">
-                {formatCurrency(product.price)}
-              </span>
+            {/* Price display with informative note */}
+            <div className="space-y-1.5">
+              <div className="p-3.5 rounded-xl bg-[#082E5A]/50 border border-white/5 flex items-baseline justify-between">
+                <span className="text-xs text-[#AAB8CA] font-medium uppercase tracking-wider">
+                  Preço Unitário
+                </span>
+                <span className="text-2xl sm:text-3xl font-extrabold text-[#F5F8FC] tabular-nums tracking-tight">
+                  {formatCurrency(product.price)}
+                </span>
+              </div>
+              <p className="text-[11px] text-[#AAB8CA] px-1">
+                * Preço e disponibilidade física confirmados no atendimento via WhatsApp.
+              </p>
             </div>
 
             {/* Hold and Shine Indicators (Only rendered if present) */}

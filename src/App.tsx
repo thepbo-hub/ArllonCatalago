@@ -14,10 +14,22 @@ import { ProductDetailsModal } from './components/ProductDetailsModal';
 import { CartDrawer } from './components/CartDrawer';
 import { Footer } from './components/Footer';
 import { Toast } from './components/Toast';
+import { LegalModal, LegalDocType } from './components/LegalModal';
+import { CookieBanner } from './components/CookieBanner';
 import { ShoppingCart, RotateCcw } from 'lucide-react';
 
 function CatalogContent() {
   const { totalItems, totalPrice, isCartOpen, openCart, formatCurrency } = useCart();
+
+  // Legal Modal State (LGPD)
+  const [legalModalOpen, setLegalModalOpen] = useState(false);
+  const [activeLegalDoc, setActiveLegalDoc] = useState<LegalDocType>('privacidade');
+  const [cookieSettingsOpen, setCookieSettingsOpen] = useState(false);
+
+  const handleOpenLegal = (doc: LegalDocType) => {
+    setActiveLegalDoc(doc);
+    setLegalModalOpen(true);
+  };
 
   // Filters State
   const [selectedCategory, setSelectedCategory] = useState<MainCategory | 'TODOS'>('TODOS');
@@ -190,15 +202,28 @@ function CatalogContent() {
         </aside>
       )}
 
-      {/* Modals, Drawer and Toast */}
+      {/* Modals, Drawer, Toast, Legal & Cookies */}
       <ProductDetailsModal
         product={activeModalProduct}
         onClose={() => setActiveModalProduct(null)}
       />
 
-      <CartDrawer />
+      <CartDrawer onOpenPrivacyPolicy={() => handleOpenLegal('privacidade')} />
 
       <Toast />
+
+      <LegalModal
+        isOpen={legalModalOpen}
+        activeDoc={activeLegalDoc}
+        onClose={() => setLegalModalOpen(false)}
+        onSelectDoc={setActiveLegalDoc}
+      />
+
+      <CookieBanner
+        onOpenCookiePolicy={() => handleOpenLegal('cookies')}
+        isOpenExplicitly={cookieSettingsOpen}
+        onCloseExplicit={() => setCookieSettingsOpen(false)}
+      />
 
       {/* Footer */}
       <Footer
@@ -206,6 +231,8 @@ function CatalogContent() {
           setSelectedCategory(cat);
           setSelectedSubcategory('TODAS');
         }}
+        onOpenLegal={handleOpenLegal}
+        onOpenCookieSettings={() => setCookieSettingsOpen(true)}
       />
     </div>
   );

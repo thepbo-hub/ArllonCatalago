@@ -1,9 +1,15 @@
-import React, { useEffect } from 'react';
-import { X, Trash2, Plus, Minus, ShoppingCart, MessageSquare } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Trash2, Plus, Minus, ShoppingCart, MessageSquare, AlertCircle, ShieldCheck } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { STORE_INFO } from '../data/products';
 
-export const CartDrawer: React.FC = () => {
+interface CartDrawerProps {
+  onOpenPrivacyPolicy?: () => void;
+}
+
+export const CartDrawer: React.FC<CartDrawerProps> = ({ onOpenPrivacyPolicy }) => {
+  const [consentChecked, setConsentChecked] = useState(true);
+  const [consentError, setConsentError] = useState(false);
   const {
     items,
     totalItems,
@@ -124,7 +130,7 @@ export const CartDrawer: React.FC = () => {
                 <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg bg-[#04172B] p-1.5 shrink-0 flex items-center justify-center border border-white/5">
                   <img
                     src={product.image}
-                    alt={product.name}
+                    alt={`Miniatura do produto ${product.name}`}
                     className="w-full h-full object-contain"
                     referrerPolicy="no-referrer"
                   />
@@ -168,6 +174,7 @@ export const CartDrawer: React.FC = () => {
                     <button
                       onClick={() => removeFromCart(product.id)}
                       title="Remover item"
+                      aria-label={`Remover ${product.name} do carrinho`}
                       className="btn-3d p-2 rounded-lg bg-[#FF5A65]/15 hover:bg-[#FF5A65] text-[#FF5A65] hover:text-white border border-[#FF5A65]/30 shadow-[0_2px_0_rgba(0,0,0,0.3)] transition-colors cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -182,6 +189,14 @@ export const CartDrawer: React.FC = () => {
         {/* Footer / Summary and WhatsApp Checkout - Solid background with safe-area protection */}
         {items.length > 0 && (
           <div className="shrink-0 p-4 sm:p-5 border-t border-[#082E5A] bg-[#04172B] space-y-3 pb-[max(1.25rem,env(safe-area-inset-bottom,1.25rem))]">
+            {/* Informative Disclaimer on Prices & Status */}
+            <div className="flex items-start gap-2 p-2.5 rounded-lg bg-[#082E5A]/30 border border-white/5 text-[11px] text-[#AAB8CA]">
+              <AlertCircle className="w-3.5 h-3.5 text-[#42C8FF] shrink-0 mt-0.5" />
+              <p className="leading-tight">
+                Preços, disponibilidade e horários são informativos e confirmados no atendimento via WhatsApp.
+              </p>
+            </div>
+
             {/* Total summary */}
             <div className="flex items-baseline justify-between pt-0.5">
               <span className="text-xs uppercase tracking-wider text-[#AAB8CA] font-semibold">
@@ -192,12 +207,53 @@ export const CartDrawer: React.FC = () => {
               </span>
             </div>
 
+            {/* LGPD Consent Checkbox */}
+            <div className="space-y-1">
+              <label className="flex items-start gap-2 cursor-pointer text-left select-none">
+                <input
+                  type="checkbox"
+                  checked={consentChecked}
+                  onChange={(e) => {
+                    setConsentChecked(e.target.checked);
+                    if (e.target.checked) setConsentError(false);
+                  }}
+                  className="mt-0.5 w-4 h-4 rounded border-[#1687FF]/40 bg-[#04172B] text-[#1687FF] focus:ring-2 focus:ring-[#42C8FF] cursor-pointer"
+                />
+                <span className="text-[11px] text-[#AAB8CA] leading-snug">
+                  Concordo em enviar os dados deste pedido via WhatsApp para atendimento, nos termos da{' '}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      if (onOpenPrivacyPolicy) onOpenPrivacyPolicy();
+                    }}
+                    className="text-[#42C8FF] underline hover:text-white font-medium"
+                  >
+                    Política de Privacidade
+                  </button>
+                  .
+                </span>
+              </label>
+
+              {consentError && (
+                <p className="text-[11px] text-[#FF5A65] font-semibold flex items-center gap-1 pl-6">
+                  <span>Por favor, confirme a concordância para prosseguir ao WhatsApp.</span>
+                </p>
+              )}
+            </div>
+
             {/* WhatsApp Checkout Primary Action in 3D */}
             <a
-              href={generateWhatsAppUrl()}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => {
+              href={consentChecked ? generateWhatsAppUrl() : '#'}
+              target={consentChecked ? '_blank' : undefined}
+              rel={consentChecked ? 'noopener noreferrer' : undefined}
+              onClick={(e) => {
+                if (!consentChecked) {
+                  e.preventDefault();
+                  setConsentError(true);
+                  return;
+                }
                 const msg = generateWhatsAppMessage();
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                   navigator.clipboard.writeText(msg).catch(() => {});
@@ -208,7 +264,11 @@ export const CartDrawer: React.FC = () => {
                   closeCart();
                 }, 150);
               }}
-              className="btn-3d btn-3d-green w-full py-3.5 sm:py-4 px-4 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer no-underline text-center"
+              className={`btn-3d w-full py-3.5 sm:py-4 px-4 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer no-underline text-center ${
+                consentChecked
+                  ? 'btn-3d-green'
+                  : 'bg-[#082E5A] text-[#AAB8CA] opacity-80 border border-white/10'
+              }`}
             >
               <MessageSquare className="w-5 h-5 fill-current shrink-0" />
               <span>Finalizar Pedido pelo WhatsApp</span>

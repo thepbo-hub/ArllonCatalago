@@ -1,11 +1,43 @@
-import React, { useState, useRef } from 'react';
-import { ArrowDown, Sparkles } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { ArrowDown, Sparkles, Pause, Play } from 'lucide-react';
 
 const VIDEO_URL = 'https://yourimageshare.com/ib/CufIM3MjZf.mp4';
 
 export const HeroSection: React.FC = () => {
   const [hasError, setHasError] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Acessibilidade WCAG 2.1 AA: Respeitar prefers-reduced-motion automaticamente
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    
+    if (mediaQuery.matches && videoRef.current) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+
+    const handler = (e: MediaQueryListEvent) => {
+      if (e.matches && videoRef.current) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    };
+
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  const togglePlayPause = () => {
+    if (!videoRef.current) return;
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+    }
+  };
 
   const scrollToCatalog = () => {
     const el = document.getElementById('catalogo');
@@ -118,6 +150,31 @@ export const HeroSection: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Acessibilidade WCAG: Controle para pausar/reproduzir animação de fundo */}
+        {!hasError && (
+          <div className="mt-4 flex justify-center">
+            <button
+              type="button"
+              onClick={togglePlayPause}
+              aria-label={isPlaying ? 'Pausar vídeo de fundo' : 'Reproduzir vídeo de fundo'}
+              title={isPlaying ? 'Pausar vídeo de fundo (acessibilidade)' : 'Reproduzir vídeo de fundo'}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#04172B]/80 hover:bg-[#082E5A] border border-white/10 text-[11px] text-[#AAB8CA] hover:text-[#42C8FF] transition-colors cursor-pointer"
+            >
+              {isPlaying ? (
+                <>
+                  <Pause className="w-3 h-3 text-[#AAB8CA]" />
+                  <span>Pausar animação de fundo</span>
+                </>
+              ) : (
+                <>
+                  <Play className="w-3 h-3 text-[#42C8FF] fill-current" />
+                  <span>Reproduzir animação</span>
+                </>
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
