@@ -252,10 +252,10 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                         <td className="p-3">Iniciado exclusivamente pelo usuário</td>
                       </tr>
                       <tr>
-                        <td className="p-3 font-semibold text-[#F5F8FC]">YourImageShare (Hospedagem de Mídia)</td>
-                        <td className="p-3">Exibição do vídeo demonstrativo de corte em plano de fundo</td>
-                        <td className="p-3">Apenas requisição técnica padrão de mídia (MP4). Não executa scripts externos.</td>
-                        <td className="p-3">Pausável a qualquer momento (WCAG)</td>
+                        <td className="p-3 font-semibold text-[#F5F8FC]">Vídeo da Logo (Hospedagem Local Estática)</td>
+                        <td className="p-3">Exibição da animação original da logo em plano de fundo (/videos/logo-arllon.mp4)</td>
+                        <td className="p-3"><strong className="text-[#35D49A]">Nenhum dado</strong> (Servido diretamente pelo próprio site, sem rastreamento externo)</td>
+                        <td className="p-3">Pausável a qualquer momento (WCAG 2.1 AA)</td>
                       </tr>
                       <tr>
                         <td className="p-3 font-semibold text-[#F5F8FC]">Armazenamento Local do Navegador</td>
