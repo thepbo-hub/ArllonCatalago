@@ -113,6 +113,9 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                 alt={`Fotografia ampliada do produto ${product.name} (${product.content})`}
                 onError={() => setImageError(true)}
                 className="w-full h-full object-contain filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)]"
+                decoding="async"
+                width={320}
+                height={320}
                 referrerPolicy="no-referrer"
               />
             ) : (

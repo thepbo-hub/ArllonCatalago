@@ -108,6 +108,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
             onError={() => setImageError(true)}
             className="relative z-10 w-full h-full object-contain transition-transform duration-400 ease-out group-hover:scale-108 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.5)]"
             loading="lazy"
+            decoding="async"
+            width={240}
+            height={240}
             referrerPolicy="no-referrer"
           />
         ) : (
