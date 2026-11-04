@@ -22,7 +22,7 @@ export interface Product {
 export const STORE_INFO = {
   name: 'Arllon Fernandes Barbearia',
   logo: 'https://i.postimg.cc/15tWcqT5/d36b31c4-82c7-4f0a-b040-58e5d065b86b.png',
-  whatsappUrl: 'https://wa.link/8q3k2r',
+  whatsappUrl: 'https://wa.link/lgxhzw',
   whatsappPhone: '5521965135344',
   tagline: 'Produtos profissionais. Resultados de respeito.',
   subtitle: 'Encontre os produtos certos para modelar, cuidar e transformar cada detalhe do visual.',

@@ -224,7 +224,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                   </div>
                 </div>
                 <p className="text-xs text-[#AAB8CA]">
-                  Para exercer seus direitos de titular, entre em contato diretamente com o Encarregado pelo e-mail <strong className="text-[#42C8FF]">[INSERIR E-MAIL DE CONTATO AQUI]</strong> ou pelo canal de WhatsApp oficial <strong className="text-[#F5F8FC]">(38) 99805-4704</strong>. Responderemos no menor prazo possível, observando as diretrizes da Autoridade Nacional de Proteção de Dados (ANPD).
+                  Para exercer seus direitos de titular, entre em contato diretamente com o Encarregado pelo e-mail <strong className="text-[#42C8FF]">[INSERIR E-MAIL DE CONTATO AQUI]</strong> ou pelo canal de WhatsApp oficial <strong className="text-[#F5F8FC]">(21) 96513-5344</strong>. Responderemos no menor prazo possível, observando as diretrizes da Autoridade Nacional de Proteção de Dados (ANPD).
                 </p>
               </section>
 
