@@ -133,15 +133,20 @@ export const LegalModal: React.FC<LegalModalProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[#AAB8CA]">
               <div>
                 <span className="block font-semibold text-[#F5F8FC]">Nome Empresarial:</span>
-                <span>Arllon Fernandes Barbearia</span>
+                <span>{STORE_INFO.name}</span>
               </div>
               <div>
                 <span className="block font-semibold text-[#F5F8FC]">CNPJ:</span>
-                <span className="text-[#42C8FF] font-mono">[INSERIR CNPJ AQUI]</span>
+                <span className="text-[#42C8FF] font-mono">{STORE_INFO.cnpj}</span>
               </div>
               <div>
                 <span className="block font-semibold text-[#F5F8FC]">E-mail de Contato / Encarregado:</span>
-                <span className="text-[#42C8FF] font-mono">[INSERIR E-MAIL DE CONTATO AQUI]</span>
+                <a
+                  href={`mailto:${STORE_INFO.email}`}
+                  className="text-[#42C8FF] font-mono hover:underline"
+                >
+                  {STORE_INFO.email}
+                </a>
               </div>
             </div>
           </div>
@@ -224,7 +229,11 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                   </div>
                 </div>
                 <p className="text-xs text-[#AAB8CA]">
-                  Para exercer seus direitos de titular, entre em contato diretamente com o Encarregado pelo e-mail <strong className="text-[#42C8FF]">[INSERIR E-MAIL DE CONTATO AQUI]</strong> ou pelo canal de WhatsApp oficial <strong className="text-[#F5F8FC]">(21) 96513-5344</strong>. Responderemos no menor prazo possível, observando as diretrizes da Autoridade Nacional de Proteção de Dados (ANPD).
+                  Para exercer seus direitos de titular, entre em contato diretamente com o Encarregado pelo e-mail{' '}
+                  <a href={`mailto:${STORE_INFO.email}`} className="text-[#42C8FF] underline font-semibold">
+                    {STORE_INFO.email}
+                  </a>{' '}
+                  ou pelo canal de WhatsApp oficial <strong className="text-[#F5F8FC]">(21) 96513-5344</strong>. Responderemos no menor prazo possível, observando as diretrizes da Autoridade Nacional de Proteção de Dados (ANPD).
                 </p>
               </section>
 

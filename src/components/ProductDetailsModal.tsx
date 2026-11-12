@@ -112,7 +112,9 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                 src={product.image}
                 alt={`Fotografia ampliada do produto ${product.name} (${product.content})`}
                 onError={() => setImageError(true)}
-                className="w-full h-full object-contain filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)]"
+                className={`w-full h-full object-contain filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] ${
+                  product.modalImageScale || ''
+                }`}
                 decoding="async"
                 width={320}
                 height={320}
@@ -138,9 +140,16 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
           <div className="space-y-5">
             {/* Header info */}
             <div>
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#42C8FF]">
-                {product.category} · {product.subcategory}
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#42C8FF]">
+                  {product.category} · {product.subcategory}
+                </span>
+                {product.brand && (
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#1687FF]/20 border border-[#1687FF]/40 text-[#F5F8FC]">
+                    Marca: {product.brand}
+                  </span>
+                )}
+              </div>
               <h2
                 id="modal-title"
                 className="mt-1 text-xl sm:text-2xl font-extrabold text-[#F5F8FC] uppercase tracking-tight leading-tight"

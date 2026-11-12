@@ -6,7 +6,9 @@ export type ShineLevel = 1 | 2 | 3 | 4;
 export interface Product {
   id: string;
   name: string;
+  brand?: string;
   category: MainCategory;
+  categories?: MainCategory[];
   subcategory: string;
   image: string;
   price: number;
@@ -17,10 +19,15 @@ export interface Product {
   holdLevel: HoldLevel | null;
   shineLevel: ShineLevel | null;
   available: boolean;
+  imageScale?: string;
+  modalImageScale?: string;
 }
 
 export const STORE_INFO = {
   name: 'Arllon Fernandes Barbearia',
+  cnpj: '42.285.234/0001-72',
+  cnpjRaw: '42285234000172',
+  email: 'arllonfernandes96@gmail.com',
   logo: 'https://i.postimg.cc/15tWcqT5/d36b31c4-82c7-4f0a-b040-58e5d065b86b.png',
   whatsappUrl: 'https://wa.link/lgxhzw',
   whatsappPhone: '5521965135344',
@@ -51,7 +58,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Pastas capilares',
     image: 'https://i.postimg.cc/6QDtVKz5/PASTA-CAPILAR-1.webp',
-    price: 70.0,
+    price: 35.0,
     description: 'Pra cliente que quer penteado natural, sem parecer que usou produto.',
     purpose: 'Modela, estiliza e fixa os fios preservando o movimento natural do cabelo. Fácil remoção com água corrente. Indicada para uso profissional ou home care.',
     benefits: [
@@ -72,7 +79,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Pastas capilares',
     image: 'https://i.postimg.cc/DztnQh5f/PASTA-CAPILAR-2.webp',
-    price: 70.0,
+    price: 35.0,
     description: 'Segura o penteado o dia todo sem pesar nem grudar no fio.',
     purpose: 'Modela, estiliza e fixa os fios preservando o movimento natural do cabelo. Fácil remoção com água corrente. Indicada para uso profissional ou home care.',
     benefits: [
@@ -93,7 +100,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Pastas capilares',
     image: 'https://i.postimg.cc/YS4tm0N9/PASTA-CAPILAR-8.webp',
-    price: 70.0,
+    price: 25.0,
     description: 'Disfarça grisalho na hora e ainda modela o penteado.',
     purpose: 'Maquiagem capilar temporária: modela e fixa intensamente enquanto cobre fios brancos e uniformiza a cor. Fácil remoção por lavagem.',
     benefits: [
@@ -116,7 +123,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Cremes capilares',
     image: 'https://i.postimg.cc/7LCqTh1C/CREME-CAPILAR-6.webp',
-    price: 70.0,
+    price: 35.0,
     description: 'Cria o efeito despenteado com fios separados e bem definidos.',
     purpose: 'Modelagem, estruturação e fixação forte sem enxágue. Promove efeito teia, alinhamento dos fios e controle de frizz com sustentação prolongada.',
     benefits: [
@@ -139,7 +146,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Géis',
     image: 'https://i.postimg.cc/fb6D7s5L/GEL-COLA-BLACK.webp',
-    price: 70.0,
+    price: 15.0,
     description: 'Fixação máxima e brilho pra quem pede o cabelo durinho.',
     purpose: 'Fixa e modela com alta performance, com camuflagem temporária de fios brancos por pigmentação cosmética de superfície.',
     benefits: [
@@ -160,7 +167,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Géis',
     image: 'https://i.postimg.cc/mr0B34Vk/GEL-COLA-INCOLOR.webp',
-    price: 70.0,
+    price: 15.0,
     description: 'Fixação máxima e brilho pra quem pede o cabelo durinho.',
     purpose: 'Modelagem capilar com alta fixação e brilho, de fácil remoção com água corrente.',
     benefits: [
@@ -183,7 +190,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Ceras capilares',
     image: 'https://i.postimg.cc/W4DsJzmt/CERA-CAPILAR-7.webp',
-    price: 70.0,
+    price: 35.0,
     description: 'Define cacho e onda com acabamento seco, sem pesar o fio.',
     purpose: 'Fixação extra forte e alta sustentação com acabamento fosco, preservando o aspecto natural do penteado.',
     benefits: [
@@ -204,7 +211,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Ceras capilares',
     image: 'https://i.postimg.cc/GpZdPRzb/CERA-CAPILAR-3.webp',
-    price: 70.0,
+    price: 35.0,
     description: 'Efeito seco moderno, textura visível sem parecer produto na cabeça.',
     purpose: 'Proporciona fixação extra forte e alta sustentação com acabamento fosco e efeito seco, preservando o aspecto natural do penteado.',
     benefits: [
@@ -227,7 +234,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Finalizadores e modeladores',
     image: 'https://i.postimg.cc/Zq9JynPZ/BISNAGA-SHINE-WAX.webp',
-    price: 70.0,
+    price: 40.0,
     description: 'Aquele brilho de barbearia clássica, ideal pro penteado molhado.',
     purpose: 'Modela, estiliza e fixa os fios com brilho moderado e definição, sem comprometer o movimento natural. Fácil remoção com água corrente.',
     benefits: [
@@ -250,7 +257,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Modeladores em pó',
     image: 'https://i.postimg.cc/nLsnQrKx/PO-MODELADOR.webp',
-    price: 70.0,
+    price: 35.0,
     description: 'Dá volume na raiz na hora, sem pesar nem parecer produto.',
     purpose: 'Modela e texturiza dando volume na raiz, com acabamento seco e sem resíduos.',
     benefits: [
@@ -273,7 +280,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Higiene capilar',
     image: 'https://i.postimg.cc/hGJK7v8B/SHAMPOO-CAPILAR-ICE-COOL.webp',
-    price: 70.0,
+    price: 30.0,
     description: 'Limpeza refrescante que tira o excesso de produto sem ressecar.',
     purpose: 'Higienização capilar diária com controle da oleosidade do couro cabeludo e refrescância intensa.',
     benefits: [
@@ -296,7 +303,7 @@ export const PRODUCTS: Product[] = [
     category: 'CABELO',
     subcategory: 'Condicionadores',
     image: 'https://i.postimg.cc/Bv8J1b5G/CONDICIONADOR-CAPILAR.webp',
-    price: 70.0,
+    price: 30.0,
     description: 'Desembaraça e sela o fio depois do shampoo, escova sem puxar.',
     purpose: 'Condiciona e desembaraça os fios, selando as cutículas, reduzindo o frizz e repondo lipídios sem deixar resíduos pesados.',
     benefits: [
@@ -319,7 +326,7 @@ export const PRODUCTS: Product[] = [
     category: 'BARBA',
     subcategory: 'Balms para barba',
     image: 'https://i.postimg.cc/R03vnh72/BALM-PARA-BARBA.webp',
-    price: 70.0,
+    price: 40.0,
     description: 'Disciplina o fio rebelde da barba com brilho, sem parecer engordurado.',
     purpose: 'Condiciona, suaviza e alinha os pelos faciais, reduzindo o frizz e melhorando a penteabilidade. Forma filme protetor flexível que auxilia na modelagem.',
     benefits: [
@@ -339,9 +346,9 @@ export const PRODUCTS: Product[] = [
     id: 'prod-14',
     name: 'Óleo para Barba — 30 ml',
     category: 'BARBA',
-    subcategory: 'Óleos para barba',
+    subcategory: 'Óleos',
     image: 'https://i.postimg.cc/q7tpCqsS/OLEO-PARA-BARBA.webp',
-    price: 70.0,
+    price: 35.0,
     description: 'Amacia a barba áspera e elimina a coceira do crescimento.',
     purpose: 'Emoliente e condicionante para barba e bigode. Hidrata os fios, alinha as cutículas, proporciona brilho e reduz o frizz sem residual pegajoso.',
     benefits: [
@@ -356,6 +363,30 @@ export const PRODUCTS: Product[] = [
     shineLevel: null,
     available: true,
   },
+  {
+    id: 'prod-18',
+    name: 'Tônico Capilar Dom Pelo — 120 ml',
+    brand: 'Dom Pelo',
+    category: 'CABELO',
+    categories: ['CABELO', 'BARBA'],
+    subcategory: 'Óleos',
+    image: 'https://i.postimg.cc/T37STTkg/a2301d17-5415-41d9-842f-b88758110157.png',
+    price: 50.0,
+    description: 'Tônico fortalecedor para cabelo, barba e sobrancelha contra alopecia e queda de fios.',
+    purpose: 'Atua diretamente no tratamento da alopecia e na redução da perda excessiva de cabelos e pelos, como barba e sobrancelha.',
+    benefits: [
+      'Fios mais grossos e resistentes.',
+      'Crescimento acelerado e uniforme.',
+      'Hidratação e brilho sem ressecar.',
+      'Melhora da vascularização local.'
+    ],
+    content: '120 ml',
+    holdLevel: null,
+    shineLevel: null,
+    available: true,
+    imageScale: 'scale-[1.38] group-hover:scale-[1.48]',
+    modalImageScale: 'scale-[1.35]',
+  },
 
   // --- ACESSÓRIOS: Esponjas Nudred ---
   {
@@ -364,7 +395,7 @@ export const PRODUCTS: Product[] = [
     category: 'ACESSÓRIOS',
     subcategory: 'Esponjas Nudred',
     image: 'https://i.postimg.cc/6Q7BGqrD/ESPONJA-NUDRED-MEDIA.webp',
-    price: 70.0,
+    price: 25.0,
     description: 'Abre a porta pro serviço de twist e dread, ticket mais alto.',
     purpose: 'Criar twists e dreads em cabelos crespos e cacheados.',
     benefits: [
@@ -384,7 +415,7 @@ export const PRODUCTS: Product[] = [
     category: 'ACESSÓRIOS',
     subcategory: 'Esponjas Nudred',
     image: 'https://i.postimg.cc/Bv8J1bTy/ESPONJA-NUDRED-GRANDE.webp',
-    price: 70.0,
+    price: 25.0,
     description: 'Abre a porta pro serviço de twist e dread, ticket mais alto.',
     purpose: 'Criar twists e dreads em cabelos crespos e cacheados.',
     benefits: [
@@ -406,7 +437,7 @@ export const PRODUCTS: Product[] = [
     category: 'ACESSÓRIOS',
     subcategory: 'Esponjas Casca de Ovo',
     image: 'https://i.postimg.cc/fRqwLm9p/ESPONJA-CASCA-DE-OVO-MEDIA.webp',
-    price: 70.0,
+    price: 30.0,
     description: 'Abre a porta pro serviço de twist e dread, ticket mais alto.',
     purpose: 'Criar twists e dreads em cabelos crespos e cacheados.',
     benefits: [

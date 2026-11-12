@@ -106,7 +106,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
             src={product.image}
             alt={`Fotografia do produto ${product.name} (${product.content})`}
             onError={() => setImageError(true)}
-            className="relative z-10 w-full h-full object-contain transition-transform duration-400 ease-out group-hover:scale-108 filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.5)]"
+            className={`relative z-10 w-full h-full object-contain transition-transform duration-400 ease-out filter drop-shadow-[0_8px_16px_rgba(0,0,0,0.5)] ${
+              product.imageScale || 'group-hover:scale-108'
+            }`}
             loading="lazy"
             decoding="async"
             width={240}
@@ -123,10 +125,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenDetails
 
       {/* Product Information */}
       <div className="relative z-10 flex flex-col flex-grow pt-2">
-        {/* Subcategory */}
-        <span className="text-[11px] font-medium uppercase tracking-wider text-[#42C8FF]/90 mb-1">
-          {product.subcategory}
-        </span>
+        {/* Subcategory & Brand */}
+        <div className="flex items-center justify-between gap-1.5 mb-1">
+          <span className="text-[11px] font-medium uppercase tracking-wider text-[#42C8FF]/90">
+            {product.subcategory}
+          </span>
+          {product.brand && (
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#1687FF]/20 border border-[#1687FF]/40 text-[#F5F8FC]">
+              {product.brand}
+            </span>
+          )}
+        </div>
 
         {/* Product Name */}
         <h3 className="text-base sm:text-lg font-bold text-[#F5F8FC] uppercase tracking-tight leading-snug line-clamp-2 group-hover:text-[#42C8FF] transition-colors">

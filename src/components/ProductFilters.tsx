@@ -41,7 +41,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
   const availableSubcategories = useMemo(() => {
     let prods = PRODUCTS;
     if (category !== 'TODOS') {
-      prods = prods.filter((p) => p.category === category);
+      prods = prods.filter((p) => p.category === category || p.categories?.includes(category));
     }
     const subs = Array.from(new Set(prods.map((p) => p.subcategory)));
     return subs;

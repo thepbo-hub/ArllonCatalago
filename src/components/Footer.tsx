@@ -163,7 +163,18 @@ export const Footer: React.FC<FooterProps> = ({
 
         {/* Sub-footer copyright & back to top */}
         <div className="mt-6 pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#AAB8CA]/80">
-          <p>© {new Date().getFullYear()} {STORE_INFO.name}. Todos os direitos reservados.</p>
+          <div className="space-y-0.5 text-center sm:text-left">
+            <p>© {new Date().getFullYear()} {STORE_INFO.name}. Todos os direitos reservados.</p>
+            <p className="text-[11px] text-[#AAB8CA]/60">
+              CNPJ: <span className="font-mono text-[#D4DEEB]">{STORE_INFO.cnpj}</span> • Contato:{' '}
+              <a
+                href={`mailto:${STORE_INFO.email}`}
+                className="text-[#42C8FF] hover:underline"
+              >
+                {STORE_INFO.email}
+              </a>
+            </p>
+          </div>
           <button
             onClick={scrollToTop}
             aria-label="Voltar para o topo da página"

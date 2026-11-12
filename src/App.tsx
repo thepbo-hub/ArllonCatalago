@@ -58,7 +58,7 @@ function CatalogContent() {
 
     // Filter by main category
     if (selectedCategory !== 'TODOS') {
-      result = result.filter((p) => p.category === selectedCategory);
+      result = result.filter((p) => p.category === selectedCategory || p.categories?.includes(selectedCategory));
     }
 
     // Filter by subcategory
@@ -66,7 +66,7 @@ function CatalogContent() {
       result = result.filter((p) => p.subcategory === selectedSubcategory);
     }
 
-    // Filter by search query (name, description, purpose, benefits)
+    // Filter by search query (name, description, purpose, benefits, brand)
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       result = result.filter((p) => {
@@ -75,7 +75,8 @@ function CatalogContent() {
         const inPurpose = p.purpose.toLowerCase().includes(q);
         const inSub = p.subcategory.toLowerCase().includes(q);
         const inBenefits = p.benefits.some((b) => b.toLowerCase().includes(q));
-        return inName || inDesc || inPurpose || inSub || inBenefits;
+        const inBrand = p.brand ? p.brand.toLowerCase().includes(q) : false;
+        return inName || inDesc || inPurpose || inSub || inBenefits || inBrand;
       });
     }
 
